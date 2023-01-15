@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.IO;
 using System.Collections.ObjectModel;
 using Microsoft.Win32;
+using System.Diagnostics;
 
 namespace Demo.WPF
 {
@@ -18,6 +19,7 @@ namespace Demo.WPF
 	/// </summary>
 	public partial class DeviceWindow : Window, INotifyPropertyChanged
 	{
+		
 		private readonly Wacom.Devices.IInkDeviceInfo _inkDeviceInfo;
 		private readonly SynchronizationContext _synchronizationContext;
 		private readonly CancellationTokenSource _cancellationToken = new();
@@ -31,6 +33,8 @@ namespace Demo.WPF
 		//private Wacom.Devices.IPairingModeService _pairingModeService;
 
 		private Wacom.Devices.IInkDeviceNotification<Wacom.Devices.BatteryStateChangedEventArgs> _batteryStatedChangedNotification;
+
+		public int num = 0;
 
 		public DeviceWindow(Wacom.Devices.IInkDeviceInfo inkDeviceInfo)
 		{
@@ -743,6 +747,7 @@ namespace Demo.WPF
 
 		public bool RealTimeInk_StartStop
 		{
+
 			get => _realTimeInkService?.IsStarted ?? false;
 			set
 			{
@@ -786,7 +791,11 @@ namespace Demo.WPF
 					PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(RealTimeInk_Point)));
 					PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(RealTimeInk_Phase)));
 
-					OnPenDataPropertyChangedSyncItem(tbRealTimeInk_Pressure, last?.Pressure, nameof(RealTimeInk_Pressure));
+
+					num++;
+                    Debug.WriteLine(num);
+
+                    OnPenDataPropertyChangedSyncItem(tbRealTimeInk_Pressure, last?.Pressure, nameof(RealTimeInk_Pressure));
 					OnPenDataPropertyChangedSyncItem(tbRealTimeInk_PointRaw, last?.PointRaw, nameof(RealTimeInk_PointRaw));
 					OnPenDataPropertyChangedSyncItem(tbRealTimeInk_PressureRaw, last?.PressureRaw, nameof(RealTimeInk_PressureRaw));
 					OnPenDataPropertyChangedSyncItem(tbRealTimeInk_TimestampRaw, last?.TimestampRaw, nameof(RealTimeInk_TimestampRaw));
@@ -796,6 +805,7 @@ namespace Demo.WPF
 					OnPenDataPropertyChangedSyncItem(tbRealTimeInk_Altitude, last?.Altitude, nameof(RealTimeInk_Altitude));
 					OnPenDataPropertyChangedSyncItem(tbRealTimeInk_Tilt, last?.Tilt, nameof(RealTimeInk_Tilt));
 					OnPenDataPropertyChangedSyncItem(tbRealTimeInk_PenId, last?.PenId, nameof(RealTimeInk_PenId));
+					
 				}
 
 				void OnPenDataPropertyChangedSyncItem<T>(TextBlock textBlock, T? value, string name) where T : struct

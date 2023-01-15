@@ -36,12 +36,15 @@ namespace Demo.WPF
 
 		public MainWindow()
 		{
+
 			_synchronizationContext = SynchronizationContext.Current;
 
 			InitializeComponent();
-			InitializeInkWatchers();
+            InitializeInkWatchers();
 
-			void InitializeInkWatchers()
+			
+
+            void InitializeInkWatchers()
 			{
 				StringBuilder sb = new();
 				int countStarted = 0;
@@ -82,6 +85,7 @@ namespace Demo.WPF
 
 		}
 
+
 		#region DeviceWatcher Events
 		private void DeviceRemoved(object sender, Wacom.Devices.IInkDeviceInfo e)
 		{
@@ -111,15 +115,17 @@ namespace Demo.WPF
 		}
         #endregion
 
-        #region Connect OnClick / Double Click connection handling
+        #region Connect OnClick / Double Click MainPage handling
         private void Go_AssessMainPage(object sender, RoutedEventArgs e)
         {
-            (lvConnectionList.SelectedItem as Connection)?.ConnectOrBringToFront();
+
+            (lvConnectionList.SelectedItem as Connection)?.ConnectToMainPage();
+			
         }
 
         private void Go_AssessMainPage(object sender, MouseButtonEventArgs e)
         {
-            (((FrameworkElement)e.OriginalSource).DataContext as Connection)?.ConnectOrBringToFront();
+            (((FrameworkElement)e.OriginalSource).DataContext as Connection)?.ConnectToMainPage();
         }
         #endregion
 

@@ -63,7 +63,7 @@ namespace Demo.WPF
 				Wacom.Licensing.LicenseValidator.Instance.SetLicense(license);
 				if (DateTime.Now > Wacom.Licensing.LicenseValidator.Instance.ExpiryDate())
 				{
-					MessageBox.Show("The license has expired, please obtain a new one");
+                    MessageBox.Show("The license has expired, please obtain a new one");
 				}
 			}
 			else

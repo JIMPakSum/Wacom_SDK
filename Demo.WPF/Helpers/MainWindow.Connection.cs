@@ -8,6 +8,9 @@ namespace Demo.WPF
 		private readonly Wacom.Devices.IInkDeviceInfo _inkDeviceInfo;
 		private DeviceWindow _deviceWindow;
 
+		//Newly added
+		private MainPage _mainPage;
+
 		public string Id => _inkDeviceInfo.Id;
 		public ImageSource TransportImage => App.TransportImage(_inkDeviceInfo.TransportProtocol);
 		public string DeviceName => _inkDeviceInfo.DeviceName;
@@ -40,5 +43,19 @@ namespace Demo.WPF
 				_deviceWindow.Activate();
 			}
 		}
-	}
+
+        public void ConnectToMainPage()
+        {
+            if (_mainPage == null)
+            {
+                _mainPage = new MainPage(_inkDeviceInfo);
+                _mainPage.Closed += (o, e) => _mainPage = null;
+                _mainPage.Show();
+            }
+            else
+            {
+                _mainPage.Activate();
+            }
+        }
+    }
 }

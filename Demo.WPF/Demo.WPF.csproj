@@ -4,6 +4,9 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows10.0.18362.0</TargetFramework>
     <UseWPF>true</UseWPF>
+    <StartupObject>Demo.WPF.App</StartupObject>
+    <Platforms>AnyCPU;ARM32;x64</Platforms>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.17" />
+    <PackageReference Include="MyScript.InteractiveInk.Wpf" Version="2.0.1" />
+    <PackageReference Include="System.Json" Version="4.7.1" />
     <PackageReference Include="ToggleSwitch" Version="1.2.0" />
   </ItemGroup>
 

@@ -37,7 +37,7 @@
                 </ListView>
                 <Button Content="Connect" Grid.Row="1" Width="60" Margin="86,10,228,10" Click="Connect_OnClick"/>
                 <TextBlock Name="tbTextMeasurement" Text="X" Visibility="Hidden" VerticalAlignment="Top"/>
-                <Button Content="Debug"  Width="60" Margin="214,10,100,10" Grid.Row="1" Click="Go_AssessMainPage" />
+                <Button Content="Debug"  Width="60" Margin="214,10,100,10" Grid.Row="2" Click="Go_AssessMainPage" />
             </Grid>
         </TabItem>
         <TabItem Header="From File">
