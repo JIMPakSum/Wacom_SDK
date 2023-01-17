@@ -10,6 +10,7 @@ namespace Demo.WPF
 
 		//Newly added
 		private MainPage _mainPage;
+		private static DebugPage _debugPage;
 
 		public string Id => _inkDeviceInfo.Id;
 		public ImageSource TransportImage => App.TransportImage(_inkDeviceInfo.TransportProtocol);
@@ -57,5 +58,20 @@ namespace Demo.WPF
                 _mainPage.Activate();
             }
         }
+
+		public static void ConnectToDeBugPage() {
+			if(_debugPage == null)
+			{
+				_debugPage = new DebugPage();
+                _debugPage.Closed += (o, e) => _debugPage = null;
+                _debugPage.Show();
+
+            }
+			else
+			{
+				_debugPage.Activate();
+
+            }
+		}
     }
 }

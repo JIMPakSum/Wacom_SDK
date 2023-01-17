@@ -9,7 +9,7 @@
         Title="Device List" Height="240" Width="400">
     <TabControl>
         <TabItem Header="New Connection">
-           <Grid Margin="10,10,10,0">
+            <Grid Margin="10,10,10,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="42"/>
@@ -20,24 +20,25 @@
                             <GridViewColumn Header="Transport">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                            <Image Source="{Binding TransportImage}" Height="{Binding ActualHeight, ElementName=tbTextMeasurement}" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,3"/>
+                                        <Image Source="{Binding TransportImage}" Height="{Binding ActualHeight, ElementName=tbTextMeasurement}" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,3"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Name">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                            <TextBlock Text="{Binding DeviceName}"/>
+                                        <TextBlock Text="{Binding DeviceName}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                                
+
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <Button Content="Connect" Grid.Row="1" Width="60" Margin="86,10,228,10" Click="Connect_OnClick"/>
+                <Button Content="Connect" Grid.Row="1" Width="60" Margin="60,10,254,10" Click="Connect_OnClick"/>
                 <TextBlock Name="tbTextMeasurement" Text="X" Visibility="Hidden" VerticalAlignment="Top"/>
-                <Button Content="Debug"  Width="60" Margin="214,10,100,10" Grid.Row="2" Click="Go_AssessMainPage" />
+                <Button Content="MainPage"  Width="60" Margin="157,10,157,10" Grid.Row="1" Click="Go_AssessMainPage" />
+                <Button Content="Debug"  Width="60" Margin="264,10,50,10" Grid.Row="1" Click="Go_Debug" />
             </Grid>
         </TabItem>
         <TabItem Header="From File">
@@ -52,7 +53,7 @@
 
                 <Label Grid.Column="0" Grid.Row="0" Content="Load stream"/>
                 <Button Grid.Column="1" Grid.Row="0" Content="Load..." Width="80" HorizontalAlignment="Left" Click="LoadStream_Click"/>
-            </Grid> 
+            </Grid>
         </TabItem>
     </TabControl>
 

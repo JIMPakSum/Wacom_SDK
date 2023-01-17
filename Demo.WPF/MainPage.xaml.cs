@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Demo.WPF.db;
+using Microsoft.Win32;
 using MyScript.IInk;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,7 +32,10 @@ namespace Demo.WPF
 
     public partial class MainPage : Window, INotifyPropertyChanged
     {
+
+
         //wacom's variable for connection
+
         private readonly Wacom.Devices.IInkDeviceInfo _inkDeviceInfo;
         private readonly SynchronizationContext _synchronizationContext;
         private readonly CancellationTokenSource _cancellationToken = new();
@@ -52,6 +57,9 @@ namespace Demo.WPF
             Loaded += (s, e) => Task.Run(async () => await ConnectAsync().ConfigureAwait(continueOnCapturedContext: false), _cancellationToken.Token);
             Unloaded += (s, e) => Disconnect();
             Closed += (s, e) => Disconnect();
+
+            //Database init
+
 
             Debug.WriteLine("abd");
             Engine engine = Engine.Create(MyScript.Certificate.MyCertificate.Bytes);

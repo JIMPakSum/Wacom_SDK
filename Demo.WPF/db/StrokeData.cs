@@ -8,7 +8,7 @@ namespace Demo.WPF.db
 {
     public class StrokeData
     {
-        public int CharacterId { get; set; }
+        public int StrokeDataId { get; set; }
         public string Character { get; set; }
 
         public int StrokeCount { get; set; }

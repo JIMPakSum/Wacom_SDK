@@ -129,6 +129,16 @@ namespace Demo.WPF
         }
         #endregion
 
+        #region Click Debug
+
+		private void Go_Debug(object sender, RoutedEventArgs e)
+		{
+			Connection.ConnectToDeBugPage();
+		}
+
+        #endregion
+
+
         #region Load Stream handling
         private async Task LoadStreamAsync(string fileName)
 		{
