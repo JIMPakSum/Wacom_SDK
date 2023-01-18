@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Threading;
 using Microsoft.Win32;
+using MyScript.IInk;
 
 namespace Demo.WPF
 {
@@ -39,7 +40,9 @@ namespace Demo.WPF
 
 			_synchronizationContext = SynchronizationContext.Current;
 
-			InitializeComponent();
+            Engine.Create((byte[])(Array)MyScript.Certificate.MyCertificate.Bytes);
+
+            InitializeComponent();
             InitializeInkWatchers();
 
 			

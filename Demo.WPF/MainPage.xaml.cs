@@ -1,6 +1,8 @@
 ﻿using Demo.WPF.db;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.Win32;
 using MyScript.IInk;
+using MyScript.IInk.UIReferenceImplementation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +10,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Printing;
 using System.Text;
 using System.Threading;
@@ -45,12 +48,16 @@ namespace Demo.WPF
 
         private Wacom.Devices.IInkDeviceNotification<Wacom.Devices.BatteryStateChangedEventArgs> _batteryStatedChangedNotification;
 
+        public int num = 0;
+        public static Engine Engine { get; private set; }
+
         public MainPage(Wacom.Devices.IInkDeviceInfo inkDeviceInfo)
         {
             _inkDeviceInfo = inkDeviceInfo;
             _synchronizationContext = SynchronizationContext.Current;
             InitializeComponent();
 
+            Engine = Engine.Create((byte[])(Array)MyScript.Certificate.MyCertificate.Bytes);
 
             Title = Title + " - " + inkDeviceInfo.DeviceName;
 
@@ -64,7 +71,49 @@ namespace Demo.WPF
             Debug.WriteLine("abd");
             Engine engine = Engine.Create(MyScript.Certificate.MyCertificate.Bytes);
             //RealTimeInk_StartStop = true;
+            engine.Configuration.SetBoolean("text.guides.enable", false);
+
+            // Create a renderer with a null render target
+            float dpiX = 166;
+            float dpiY = 166;
+            var renderer = engine.CreateRenderer(dpiX, dpiY, null);
+
+
+            // Create the editor with a default tool controller
+            var editor = engine.CreateEditor(renderer);
+
+            // The editor requires a font metrics provider and a view size *before* setting the part
+            var fontMetricsProvider = new MyScript.IInk.UIReferenceImplementation.FontMetricsProvider(dpiX, dpiY,dpiX);
+            editor.SetFontMetricsProvider(fontMetricsProvider);
+            editor.SetViewSize(62200, 43200);
+
+            // Create a temporary package and part for the editor to work with
+            var package = engine.CreatePackage("text.iink");
+            var part = package.CreatePart("Text");
+            editor.Part = part;
         }
+
+        //debug
+        private bool CheckConnection(String URL)
+        {
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                request.Timeout = 5000;
+                request.Credentials = CredentialCache.DefaultNetworkCredentials;
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
 
         //wacom
 
@@ -289,7 +338,8 @@ namespace Demo.WPF
                     PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(RealTimeInk_Point)));
                     PropertyChanged.Invoke(this, new PropertyChangedEventArgs(nameof(RealTimeInk_Phase)));
 
-                    Debug.WriteLine("ABC");
+                    num++;
+                    Debug.WriteLine(num);
                     /*
                     OnPenDataPropertyChangedSyncItem(tbRealTimeInk_Pressure, last?.Pressure, nameof(RealTimeInk_Pressure));
                     OnPenDataPropertyChangedSyncItem(tbRealTimeInk_PointRaw, last?.PointRaw, nameof(RealTimeInk_PointRaw));

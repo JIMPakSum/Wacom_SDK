@@ -11,6 +11,7 @@ using System.IO;
 using System.Collections.ObjectModel;
 using Microsoft.Win32;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace Demo.WPF
 {
@@ -794,7 +795,7 @@ namespace Demo.WPF
 
 					num++;
                     Debug.WriteLine(num);
-
+                    Debug.WriteLine(Assembly.GetEntryAssembly().GetName().Name);
                     OnPenDataPropertyChangedSyncItem(tbRealTimeInk_Pressure, last?.Pressure, nameof(RealTimeInk_Pressure));
 					OnPenDataPropertyChangedSyncItem(tbRealTimeInk_PointRaw, last?.PointRaw, nameof(RealTimeInk_PointRaw));
 					OnPenDataPropertyChangedSyncItem(tbRealTimeInk_PressureRaw, last?.PressureRaw, nameof(RealTimeInk_PressureRaw));
